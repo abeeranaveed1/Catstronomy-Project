@@ -1,0 +1,46 @@
+const theme = {
+    colors: {
+        primary: "rgb(152, 64, 97)",
+        onPrimary: "rgb(255, 255, 255)",
+        primaryContainer: "rgb(255, 217, 226)",
+        PrimaryContainer: "rgb(62, 0, 29)",
+        secondary: "rgb(116, 86, 95)",
+        onSecondary: "rgb(255, 255, 255)",
+        secondaryContainer: "rgb(255, 217, 226)",
+        onSecondaryContainer: "rgb(43, 21, 28)",
+        tertiary: "rgb(124, 86, 53)",
+        onTertiary: "rgb(255, 255, 255)",
+        tertiaryContainer: "rgb(255, 220, 193)",
+        onTertiaryContainer: "rgb(46, 21, 0)",
+        error: "rgb(186, 26, 26)",
+        onError: "rgb(255, 255, 255)",
+        errorContainer: "rgb(255, 218, 214)",
+        onErrorContainer: "rgb(65, 0, 2)",
+        background: "rgb(255, 251, 255)",
+        onBackground: "rgb(32, 26, 27)",
+        surface: "rgb(255, 251, 255)",
+        onSurface: "rgb(32, 26, 27)",
+        surfaceVariant: "rgb(242, 221, 225)",
+        onSurfaceVariant: "rgb(81, 67, 71)",
+        outline: "rgb(131, 115, 119)",
+        outlineVariant: "rgb(213, 194, 198)",
+        shadow: "rgb(0, 0, 0)",
+        scrim: "rgb(0, 0, 0)",
+        inverseSurface: "rgb(53, 47, 48)",
+        inverseOnSurface: "rgb(250, 238, 239)",
+        inversePrimary: "rgb(255, 177, 200)",
+        elevation: {
+          level0: "transparent",
+          level1: "rgb(250, 242, 247)",
+          level2: "rgb(247, 236, 242)",
+          level3: "rgb(244, 230, 238)",
+          level4: "rgb(243, 229, 236)",
+          level5: "rgb(241, 225, 233)"
+        },
+        surfaceDisabled: "rgba(32, 26, 27, 0.12)",
+        onSurfaceDisabled: "rgba(32, 26, 27, 0.38)",
+        backdrop: "rgba(58, 45, 48, 0.4)"
+      },
+};
+
+export default theme;

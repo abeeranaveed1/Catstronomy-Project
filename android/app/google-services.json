@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "307889108904",
+    "project_id": "catstronomy-c0b63",
+    "storage_bucket": "catstronomy-c0b63.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:307889108904:android:1c306e47bd32518fd60f9d",
+        "android_client_info": {
+          "package_name": "com.catstronomy.Catstronomy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "307889108904-js0or9lavjfg3sr2mf2lp1eek2semof3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.catstronomy.Catstronomy",
+            "certificate_hash": "2b9969f6628816c1ad58f2909b389f3ac5372498"
+          }
+        },
+        {
+          "client_id": "307889108904-tkm6nll9usilh5274a0tpa6jg6vejkh6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBihw_7Oxp3MAWAnjd26J6r55JwOeCKuiY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "307889108904-tkm6nll9usilh5274a0tpa6jg6vejkh6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
