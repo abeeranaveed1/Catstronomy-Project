@@ -14,22 +14,23 @@ const Weight = ({navigation, route}) => {
   const {params = {}} = route;
   const {catId} = params;
   useEffect(() => {
-  const user = firebase.auth().currentUser;
-  firebase
-  .firestore()
-  .collection(`users/${user.uid}/cats`)
-  .doc(catId)
-  .get()
-  .then((snapshot) => {
-  if (snapshot.exists) {
-  setName(snapshot.data());
-  console.log(snapshot.data());
-  console.log("Data fetched successfully")
-  } else {
-  console.log('Cat does not exist');
-  }
-  });
-  }, []);
+    const user = firebase.auth().currentUser;
+    firebase
+      .firestore()
+      .collection(`users/${user.uid}/cats`)
+      .doc(catId)
+      .get()
+      .then((snapshot) => {
+        if (snapshot.exists) {
+          setName(snapshot.data());
+          setCatWeight(snapshot.data().catWeight); // set the initial value of catBreed from the database
+          console.log(snapshot.data());
+          console.log('Data fetched successfully');
+        } else {
+          console.log('Cat does not exist');
+        }
+      });
+  }, [catId]); // add catId as a dependency to useEffect
   
   const Update = () => {
   
@@ -93,10 +94,13 @@ const Weight = ({navigation, route}) => {
       </TouchableOpacity>
       <TouchableOpacity
       onPress={() => {
-        {Update()};
-        navigation.navigate('Cat Profile');
-    }
+        if (catWeight >= 0 && catWeight <= 18) {
+          Update();
+          navigation.navigate('Cat Profile');
+        } else {
+          alert('Please enter a valid weight between 0 and 18.');
         }
+      }}
       
       
       style={{backgroundColor:'pink',height:hp(5), width:wp(25), borderRadius:10}}>

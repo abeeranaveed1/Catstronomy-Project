@@ -7,30 +7,18 @@ import {firebase} from '../../config'
 
 
   const Breed = ({ navigation,route}) => {
+    const [loading, setLoading] = useState(false);
+
     const [name, setName] = useState('');
   const [catBreed, setCatBreed] = useState('')
     console.log(route)
     const {params = {}} = route;
     const {catId} = params;
+    const isEnglishChars = (chars) => {
+      const re = /^[a-zA-Z ]*$/
+      return re.test(chars);
+    };
     useEffect(() => {
-    const user = firebase.auth().currentUser;
-    firebase
-    .firestore()
-    .collection(`users/${user.uid}/cats`)
-    .doc(catId)
-    .get()
-    .then((snapshot) => {
-    if (snapshot.exists) {
-    setName(snapshot.data());
-    console.log(snapshot.data());
-    console.log("Data fetched successfully")
-    } else {
-    console.log('Cat does not exist');
-    }
-    });
-    }, [catId]);
-    
-    const Update = () => {
       const user = firebase.auth().currentUser;
       firebase
         .firestore()
@@ -39,14 +27,29 @@ import {firebase} from '../../config'
         .get()
         .then((snapshot) => {
           if (snapshot.exists) {
-            firebase
-              .firestore()
-              .collection(`users/${user.uid}/cats`)
-              .doc(catId)
-              .update({
-                catBreed: catBreed,
-              });
-            // refresh data after update 
+            setName(snapshot.data());
+            setCatBreed(snapshot.data().catBreed); // set the initial value of catBreed from the database
+            console.log(snapshot.data());
+            console.log('Data fetched successfully');
+          } else {
+            console.log('Cat does not exist');
+          }
+        });
+    }, [catId]); // add catId as a dependency to useEffect
+  
+    const Update = () => {
+      const user = firebase.auth().currentUser;
+  
+      if (catBreed) {
+        firebase
+          .firestore()
+          .collection(`users/${user.uid}/cats`)
+          .doc(catId)
+          .update({
+            catBreed: catBreed,
+          })
+          .then(() => {
+            // refresh data after update
             firebase
               .firestore()
               .collection(`users/${user.uid}/cats`)
@@ -55,16 +58,18 @@ import {firebase} from '../../config'
               .then((snapshot) => {
                 if (snapshot.exists) {
                   setName(snapshot.data());
+                  setCatBreed(snapshot.data().catBreed); // update the value of catBreed from the database
                   console.log(snapshot.data());
                   alert('Changes made successfully!');
                 } else {
                   console.log('Cat does not exist');
                 }
               });
-          } else {
-            console.log('Cat does not exist');
-          }
-        });
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
     };
     
     
@@ -89,10 +94,14 @@ import {firebase} from '../../config'
   shadowRadius: 1, elevation: 25}}>
     <Styling title="Breed" style={{fontSize:16,alignSelf:'flex-start', marginLeft:24, color:'purple'}}/>
       <View style={{height:hp(3), width:wp(80),borderBottomWidth:0.9, borderColor:'grey'}}>
-        <TextInput style={{textAlign:'center'}}
-        value={catBreed}
-        onChangeText={(catBreed)=> setCatBreed(catBreed)}
-        />
+      <TextInput
+  style={{ textAlign: 'center' }}
+  value={catBreed}
+  onChangeText={(value)=>{
+    if(!value) return setCatBreed("")
+    isEnglishChars(value) && setCatBreed(value)
+  }}
+  />
       </View>
       <View style={{flexDirection:'row', width:wp(80), justifyContent:'space-around'}}>
       <TouchableOpacity style={{backgroundColor:'pink', height:hp(5), 

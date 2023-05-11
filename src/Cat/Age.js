@@ -13,23 +13,25 @@ const Age = ({ navigation,route}) => {
   const {params = {}} = route;
   const {catId} = params;
   useEffect(() => {
-  const user = firebase.auth().currentUser;
-  firebase
-  .firestore()
-  .collection(`users/${user.uid}/cats`)
-  .doc(catId)
-  .get()
-  .then((snapshot) => {
-  if (snapshot.exists) {
-  setName(snapshot.data());
-  console.log(snapshot.data());
-  console.log("Data fetched successfully")
-  } else {
-  console.log('Cat does not exist');
-  }
-  });
-  }, []);
-  
+    const user = firebase.auth().currentUser;
+    firebase
+      .firestore()
+      .collection(`users/${user.uid}/cats`)
+      .doc(catId)
+      .get()
+      .then((snapshot) => {
+        if (snapshot.exists) {
+          setName(snapshot.data());
+          setCatAgeYears(snapshot.data().catAgeYears);
+          setCatAgeMonths(snapshot.data().catAgeMonths); // set the initial value of catBreed from the database
+          console.log(snapshot.data());
+          console.log('Data fetched successfully');
+        } else {
+          console.log('Cat does not exist');
+        }
+      });
+  }, [catId]); // add catId as a dependency to useEffect
+
   const Update = () => {
   
   const user = firebase.auth().currentUser;
@@ -112,11 +114,14 @@ const Age = ({ navigation,route}) => {
         <Styling title="Discard Changes" style={{color: 'purple',textAlign:'center',marginTop:6}}/>
       </TouchableOpacity>
       <TouchableOpacity 
-      onPress={() => {
-        {Update()};
+    onPress={() => {
+      if (catAgeYears >= 0 && catAgeYears <= 20 && catAgeMonths >= 0 && catAgeMonths <= 11) {
+        Update();
         navigation.navigate('Cat Profile');
-    }
-        }
+      } else {
+        alert('Please enter a valid age for your cat');
+      }
+    }}
       style={{backgroundColor:'pink',height:hp(5), width:wp(25), borderRadius:10}}>
         <Styling title="Save Changes" style={{color: 'purple',textAlign:'center', marginTop:6}}/>
       </TouchableOpacity>

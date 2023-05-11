@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, SafeAreaView, Image, ImageBackground } from 'react-native'
+import { StyleSheet, Text, View, SafeAreaView, Image, ImageBackground, TouchableHighlight, Linking } from 'react-native'
 import React, {useState, useEffect} from 'react'
 import Navbar from './Navbar'
 import {firebase} from '../../config'
@@ -23,6 +23,9 @@ const Dashboard = ({navigation}) => {
     })
    }, [])
 
+   const handleVetsNearYou = () => {
+    Linking.openURL('https://www.google.com/maps/search/vets+near+me/')
+  }
 
   return (
     <View style={{backgroundColor:'black'}}>
@@ -45,18 +48,20 @@ const Dashboard = ({navigation}) => {
          
       </TouchableOpacity>
       <View style={{ height:hp(30), width:wp(50),alignSelf:'center',justifyContent:'space-evenly'}}>
-      <TouchableOpacity
+      <TouchableHighlight
       
-      onPress={()=>navigation.navigate('Locate Vets')}
+      onPress={handleVetsNearYou}
       style={{backgroundColor:'#ffe6e9', height:hp(12), width:wp(50),borderRadius:35,flexDirection:'row',alignContent:'center'
     ,justifyContent:'center',shadowOffset: {width: -50, height: 3},  
     shadowColor: '#ff0026',  
     shadowOpacity: 0.2,  
     shadowRadius: 1, elevation: 25}}>
-      <Image source={require('../logos/location.png')} style={{width:wp(10), height:hp(10), alignSelf:'center'}}/>
-      <Styling title="Locate Vets" style={{ alignSelf:'center', color:'#ff8093', fontSize:20,marginLeft:5}}/>
-      
-      </TouchableOpacity>
+      <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        <Image source={require('../logos/location.png')} style={{width:wp(10), height:hp(10), alignSelf:'center'}}/>
+        <Styling title="Locate Vets" style={{ alignSelf:'center', color:'#ff8093', fontSize:20,marginLeft:5 }}/>
+  </View>
+  
+  </TouchableHighlight>
       <TouchableOpacity
       onPress={()=>navigation.navigate('FAQ')}
       style={{backgroundColor:'#ffaa80',height:hp(12), width:wp(50),borderRadius:35,flexDirection:'row',alignContent:'center',justifyContent:'center',

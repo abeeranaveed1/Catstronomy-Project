@@ -10,16 +10,32 @@ import {firebase} from '../../config'
 const {width} = Dimensions.get('screen');
 
 const CatView = ({navigation, route}) => {
+  const [loading, setLoading] = useState(false);
 
   const userId = firebase.auth().currentUser.uid;
   const catRef = firebase.firestore().collection('users').doc(userId).collection('cats').doc(catId);
 
 
   const [name,setName] = useState('');
-// open emulator and try
+
   console.log(route)
   const {params = {}} = route;
   const {catId} = params;
+
+  useEffect(() => {
+    if (catId) {
+      const user = firebase.auth().currentUser;
+      firebase
+        .firestore()
+        .collection(`users/${user.uid}/cats`)
+        .doc(catId)
+        .onSnapshot(doc => {
+          setName(doc.data());
+          console.log(doc.data());
+        });
+    }
+  }, [catId]);
+
   const [update, setUpdate] = useState(false);
   useEffect(()=>{
     const user = firebase.auth().currentUser;
@@ -92,6 +108,13 @@ const CatView = ({navigation, route}) => {
           catWeight: catWeight,
         });
     }
+    if (catNature) {
+      firebase.firestore().collection('users')
+        .doc(firebase.auth().currentUser.uid).collection('cats').doc(catId)
+        .update({
+          catNature: catNature,
+        });
+    }
 
   }
   
@@ -105,9 +128,9 @@ const CatView = ({navigation, route}) => {
   return (
     <View style={{backgroundColor:'pink',height:hp(85), width:wp(100)}}>
       <ImageBackground source={require('../images/background.png')} style={{width:'100%',height:hp(100), overflow:'hidden', opacity:.75, alignItems:'center', backgroundColor:'orange',marginTop:'-20%'}}>
-      <TouchableOpacity style={[styles.circle, { width: width/2, height: width/2, borderRadius: width/4, marginTop:'21%' }]}>
+      <View style={[styles.circle, { width: width/2, height: width/2, borderRadius: width/4, marginTop:'21%' }]}>
         <Image source={{uri: name.profilePicture}}/>
-        </TouchableOpacity>
+        </View>
         
         <View style={{marginTop:10,width:wp(95), height:hp(47), backgroundColor:'white', alignSelf:'center', alignItems:'center', justifyContent:'space-evenly',
       borderTopLeftRadius:25, borderTopRightRadius:25,borderBottomLeftRadius:25, borderBottomRightRadius:25,
@@ -152,12 +175,19 @@ borderBottomRightRadius:20,borderBottomLeftRadius:20,alignItems:'center'}}>
   </View>
 </View>
           </View>
-          <View style={{height:hp(10), backgroundColor:'white', width:wp(80), borderTopRightRadius:20,borderTopLeftRadius:20,
+          <View style={{height:hp(10), width:wp(90), flexDirection:'row', justifyContent:'space-between'}}>
+  <View style={{height:hp(10), backgroundColor:'white', width:wp(40), borderTopRightRadius:20,borderTopLeftRadius:20,
 borderBottomRightRadius:20,borderBottomLeftRadius:20,alignItems:'center'}}>
   <Styling title="Gender" style={{color:'purple', marginTop:5}}/>
-  <Styling title={name.catGender} style={{marginTop:10,color:'purple',textAlign:'center',borderColor:'purple',borderBottomWidth:.5,width:wp(75)}}/>
+  <Styling title={name.catGender} style={{marginTop:10,color:'purple',textAlign:'center',borderColor:'purple',borderBottomWidth:.5,width:wp(30)}}/>
 </View>
-<View style={{height:hp(10), backgroundColor:'white', width:wp(80), borderTopRightRadius:20,borderTopLeftRadius:20,
+<View style={{height:hp(10), backgroundColor:'white', width:wp(40), borderTopRightRadius:20,borderTopLeftRadius:20,
+borderBottomRightRadius:20,borderBottomLeftRadius:20,alignItems:'center'}}>
+  <Styling title="Nature" style={{color:'purple', marginTop:5}}/>
+  <Styling title={name.catNature} style={{marginTop:10,color:'purple',textAlign:'center',borderColor:'purple',borderBottomWidth:.5,width:wp(30)}}/>
+</View>
+</View>
+<View style={{height:hp(10), backgroundColor:'white', width:wp(90), borderTopRightRadius:20,borderTopLeftRadius:20,
 borderBottomRightRadius:20,borderBottomLeftRadius:20,alignItems:'center'}}>
   <Styling title="State" style={{color:'purple', marginTop:5}}/>
   <Styling title={name.catState} style={{marginTop:10,color:'purple',textAlign:'center',borderColor:'purple',borderBottomWidth:.5,width:wp(75)}}/>

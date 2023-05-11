@@ -8,6 +8,7 @@ import New from '../components/New'
 import { useNavigation } from '@react-navigation/native';
 const CatProfileManagement = () => {
 
+  const [loading, setLoading] = useState(false);
 
 
 

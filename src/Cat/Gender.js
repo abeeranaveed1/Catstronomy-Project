@@ -13,51 +13,61 @@ import {firebase} from '../../config'
     console.log(route)
     const {params = {}} = route;
     const {catId} = params;
+    
     useEffect(() => {
-    const user = firebase.auth().currentUser;
-    firebase
-    .firestore()
-    .collection(`users/${user.uid}/cats`)
-    .doc(catId)
-    .get()
-    .then((snapshot) => {
-    if (snapshot.exists) {
-    setName(snapshot.data());
-    console.log(snapshot.data());
-    console.log("Data fetched successfully")
-    } else {
-    console.log('Cat does not exist');
-    }
-    });
-    }, []);
+      const user = firebase.auth().currentUser;
+      firebase
+        .firestore()
+        .collection(`users/${user.uid}/cats`)
+        .doc(catId)
+        .get()
+        .then((snapshot) => {
+          if (snapshot.exists) {
+            setName(snapshot.data());
+            setCatGender(snapshot.data().catGender); // set the initial value of catGender from the database
+            console.log(snapshot.data());
+            console.log('Data fetched successfully');
+          } else {
+            console.log('Cat does not exist');
+          }
+        });
+    }, [catId]);
     
     const Update = () => {
+      const user = firebase.auth().currentUser;
     
-    const user = firebase.auth().currentUser;
-  
-    if (catGender) {
-      firebase
-    .firestore()
-    .collection(`users/${user.uid}/cats`)
-    .doc(catId).update({
-        catGender: catGender,
-      });
-    }
-    //refresh data after update
-    firebase
-    .firestore()
-    .collection(`users/${user.uid}/cats`)
-    .doc(catId).get().then((snapshot) => {
-      if (snapshot.exists) {
-        setName(snapshot.data());
-        console.log(snapshot.data())
-        alert('Changes made successfully!');
-      } else {
-        console.log('Cat does not exist');
+      if (catGender) {
+        firebase
+          .firestore()
+          .collection(`users/${user.uid}/cats`)
+          .doc(catId)
+          .update({
+            catGender: catGender,
+          })
+          .then(() => {
+            // refresh data after update
+            firebase
+              .firestore()
+              .collection(`users/${user.uid}/cats`)
+              .doc(catId)
+              .get()
+              .then((snapshot) => {
+                if (snapshot.exists) {
+                  setName(snapshot.data());
+                  setCatGender(snapshot.data().catGender); // update the value of catGender from the database
+                  console.log(snapshot.data());
+                  alert('Changes made successfully!');
+                } else {
+                  console.log('Cat does not exist');
+                }
+              });
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       }
-    });
-    
     };
+    
 
   return (
     <View style={{height:hp(110), width:wp(100), alignItems:'center', backgroundColor:'black'}}>
@@ -80,22 +90,22 @@ import {firebase} from '../../config'
       <View style={{flexDirection:'row', alignItems:'center', height:hp(4), width:wp(30), justifyContent:'space-evenly'}}>
       
      <Styling title="Male" style={{color:'purple',fontSize:16}}/>
-      <RadioButton
-        value="Male"
-        status={ catGender === 'Male' ? 'checked' : 'unchecked' }
-        onPress={() => setCatGender('Male')}
-        uncheckedColor='purple'
-        
-      />
+     <RadioButton
+  value="Male"
+  status={catGender === 'Male' ? 'checked' : 'unchecked'}
+  onPress={() => setCatGender('Male')}
+  uncheckedColor='purple'
+/>
+
       </View>
       <View style={{flexDirection:'row', alignItems:'center', height:hp(4), width:wp(30), justifyContent:'space-evenly'}}>
       <Styling title="Female" style={{color:'purple', fontSize:16}}/>
       <RadioButton
-        value="Female"
-        status={ catGender === 'Female' ? 'checked' : 'unchecked' }
-        onPress={() => setCatGender('Female')}
-        uncheckedColor='purple'
-      />
+  value="Female"
+  status={catGender === 'Female' ? 'checked' : 'unchecked'}
+  onPress={() => setCatGender('Female')}
+  uncheckedColor='purple'
+/>
       </View>
       </View>
       <View style={{flexDirection:'row', width:wp(80), justifyContent:'space-around'}}>

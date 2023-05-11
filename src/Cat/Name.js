@@ -7,56 +7,72 @@ import {firebase} from '../../config'
 
 const Name = ({navigation, route}) => {
   const [Name, setName] = useState('');
-  const [catName, setCatName] = useState('')
-  console.log(route)
-  const {params = {}} = route;
-  const {catId} = params;
-  useEffect(() => {
-  const user = firebase.auth().currentUser;
-  firebase
-  .firestore()
-  .collection(`users/${user.uid}/cats`)
-  .doc(catId)
-  .get()
-  .then((snapshot) => {
-  if (snapshot.exists) {
-  setName(snapshot.data());
-  console.log(snapshot.data());
-  console.log("Data fetched successfully")
-  } else {
-  console.log('Cat does not exist');
-  }
-  });
-  }, []);
-  
-  const Update = () => {
-  
-  const user = firebase.auth().currentUser;
+  const [catName, setCatName] = useState('');
 
-  if (catName) {
-    firebase
-  .firestore()
-  .collection(`users/${user.uid}/cats`)
-  .doc(catId).update({
-      catName: catName,
-    });
-  }
-  //refresh data after update 
-  firebase
-  .firestore()
-  .collection(`users/${user.uid}/cats`)
-  .doc(catId).get().then((snapshot) => {
-    if (snapshot.exists) {
-      setName(snapshot.data());
-      console.log(snapshot.data())
-      alert('Changes made successfully!');
-    } else {
-      console.log('Cat does not exist');
-    }
-  });
-  
+  const { params = {} } = route;
+  const { catId } = params;
+
+  const isEnglishChars = (chars) => {
+    const re = /^[a-zA-Z ]*$/
+    return re.test(chars);
   };
 
+
+  useEffect(() => {
+    const user = firebase.auth().currentUser;
+    firebase
+      .firestore()
+      .collection(`users/${user.uid}/cats`)
+      .doc(catId)
+      .get()
+      .then((snapshot) => {
+        if (snapshot.exists) {
+          setName(snapshot.data());
+          setCatName(snapshot.data().catName); // set the initial value of catName from the database
+          console.log(snapshot.data());
+          console.log('Data fetched successfully');
+        } else {
+          console.log('Cat does not exist');
+        }
+      });
+  }, [catId]); // add catId as a dependency to useEffect
+
+  const Update = () => {
+    const user = firebase.auth().currentUser;
+
+    if (catName) {
+      firebase
+        .firestore()
+        .collection(`users/${user.uid}/cats`)
+        .doc(catId)
+        .update({
+          catName: catName,
+        })
+        .then(() => {
+          // refresh data after update
+          firebase
+            .firestore()
+            .collection(`users/${user.uid}/cats`)
+            .doc(catId)
+            .get()
+            .then((snapshot) => {
+              if (snapshot.exists) {
+                setName(snapshot.data());
+                setCatName(snapshot.data().catName); // update the value of catName from the database
+                console.log(snapshot.data());
+                alert('Changes made successfully!');
+              } else {
+                console.log('Cat does not exist');
+              }
+            });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  
+      
+  };
   return (
     <View style={{height:hp(110), width:wp(100), alignItems:'center', backgroundColor:'black'}}>
       <Image source={require('../images/background.png')} style={{width:'100%',height:'100%', overflow:'hidden', opacity:0.8}}/>
@@ -74,10 +90,14 @@ const Name = ({navigation, route}) => {
     shadowRadius: 1, elevation: 25}}>
       <Styling title="Full Name" style={{alignSelf:'flex-start', marginLeft:24, color:'purple'}}/>
         <View style={{height:hp(3), width:wp(80),borderBottomWidth:0.9, borderColor:'grey'}}>
-          <TextInput
-          style={{textAlign:'center'}}
-          value={catName}
-          onChangeText={(catName)=>setCatName(catName)}/>
+        <TextInput
+  style={{ textAlign: 'center' }}
+  value={catName}
+  onChangeText={(value)=>{
+    if(!value) return setCatName("")
+    isEnglishChars(value) && setCatName(value)
+  }}
+  />
         </View>
         <View style={{flexDirection:'row', width:wp(80), justifyContent:'space-around'}}>
         <TouchableOpacity style={{backgroundColor:'pink', height:hp(5), 

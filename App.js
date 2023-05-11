@@ -22,6 +22,7 @@ import Breed from './src/Cat/Breed'
 import Gender from './src/Cat/Gender'
 import Weight from './src/Cat/Weight'
 import State from './src/Cat/State'
+import Nature from './src/Cat/Nature'
 import Color from './src/Cat/Color'
 import New from './src/components/New'
 import Create from './src/drawer-screens/CreateProfile'
@@ -29,6 +30,16 @@ import GetFAQ from './src/components/FetchFAQ';
 import CatView from './src/drawer-screens/CatView'
 import Trying from './src/components/Trying';
 import Catpicture from './src/components/Catpicture'
+import Behave from './src/drawer-screens/Behave';
+import GetBehave from './src/components/FetchBehavior';
+import Groom from './src/GetFAQ/Groom';
+import NutritionFAQ from './src/GetFAQ/NutritionFAQ';
+import Safe from './src/GetFAQ/Safe';
+import Wellness from './src/GetFAQ/Wellness';
+import Grooming from './src/FAQ/Grooming';
+import Health from './src/FAQ/Health';
+import Nutrition from './src/FAQ/Nutrition';
+import Safety from './src/FAQ/Safety';
 
 
 
@@ -86,12 +97,22 @@ if (initialiiazing) return null;
    name='Locate Vets' 
    component={Vets}
    />
+              <Drawer.Screen name="Groom" component={Groom}/>
+              <Drawer.Screen name="NutritionFAQ" component={NutritionFAQ}/>
+              <Drawer.Screen name="Safe" component={Safe}/>
+              <Drawer.Screen name="Wellness" component={Wellness}/>
+              <Drawer.Screen name="Grooming" component={Grooming}/>
+              <Drawer.Screen name="Health" component={Health}/>
+              <Drawer.Screen name="Nutrition" component={Nutrition}/>
+              <Drawer.Screen name="Safety" component={Safety}/>
+
            <Drawer.Screen name='Profile' component={UserProfile}/>
            <Drawer.Screen name='CatEdit' component={CatEdit}/>
            <Drawer.Screen name='Color' component={Color}/>
            <Drawer.Screen name='Name' component={Name}/>
            <Drawer.Screen name='Weight' component={Weight}/>
            <Drawer.Screen name='Age' component={Age}/>
+          <Drawer.Screen name="Nature" component={Nature}/>
            <Drawer.Screen name='Breed' component={Breed}/>
            <Drawer.Screen name='State' component={State}/>
            <Drawer.Screen name='Gender' component={Gender}/>
@@ -101,6 +122,10 @@ if (initialiiazing) return null;
            <Drawer.Screen name="CatView" component={CatView}/>
            <Drawer.Screen name="Trying" component={Trying}/>
            <Drawer.Screen name="CatPicture" component={Catpicture}/>
+           <Drawer.Screen name="Behave" component={Behave}/>
+           <Drawer.Screen name="GetBehave" component={GetBehave}/>
+
+
 
       </Drawer.Navigator>);}
 

@@ -135,9 +135,20 @@ const [update, setUpdate] = useState('');
         </TouchableOpacity>
         <View style={{height:hp(51),width:wp(95),alignItems:'center', opacity:.93}}>
           <TouchableOpacity style={{backgroundColor:'pink',height:hp(7),width:wp(90),borderTopLeftRadius:20,borderTopRightRadius:20,borderBottomWidth:0.3,borderBottomColor:'white',
-          marginTop:-15,justifyContent:'space-between', flexDirection:'row',alignItems:'center'}}
+          marginTop:-50,justifyContent:'space-between', flexDirection:'row',alignItems:'center'}}
           onPress={()=>navigation.navigate('Name',{ catId: catId })}>
             <Styling title="Name" style={{marginLeft:16,fontSize:17, color:'white'}}/>
+<MaterialIcons name="arrow-forward-ios" size={20} color="white" style={{marginRight:5}}/>
+          </TouchableOpacity>
+          <TouchableOpacity style={{backgroundColor:'pink',height:hp(7),width:wp(90),
+        justifyContent:'space-between', flexDirection:'row'
+        ,alignItems:'center',
+        shadowOffset: {width: -40, height: 1},  
+        shadowColor: '#ff0026',  
+        shadowOpacity: 0.1,  
+        shadowRadius: 1, elevation: 15}}
+        onPress={() => navigation.navigate('Age', { catId: catId })}>
+          <Styling title="Age" style={{marginLeft:16,fontSize:17, color:'white'}}/>
 <MaterialIcons name="arrow-forward-ios" size={20} color="white" style={{marginRight:5}}/>
           </TouchableOpacity>
           <TouchableOpacity style={{backgroundColor:'pink',height:hp(7),width:wp(90),borderBottomLeftRadius:20,borderBottomRightRadius:20,
@@ -147,8 +158,8 @@ const [update, setUpdate] = useState('');
         shadowColor: '#ff0026',  
         shadowOpacity: 0.1,  
         shadowRadius: 1, elevation: 15}}
-        onPress={() => navigation.navigate('Age', { catId: catId })}>
-          <Styling title="Age" style={{marginLeft:16,fontSize:17, color:'white'}}/>
+        onPress={() => navigation.navigate('Nature', { catId: catId })}>
+          <Styling title="Nature" style={{marginLeft:16,fontSize:17, color:'white'}}/>
 <MaterialIcons name="arrow-forward-ios" size={20} color="white" style={{marginRight:5}}/>
           </TouchableOpacity>
 

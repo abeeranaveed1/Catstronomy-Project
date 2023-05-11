@@ -16,48 +16,57 @@ const State = ({navigation,route}) => {
   const {params = {}} = route;
   const {catId} = params;
   useEffect(() => {
-  const user = firebase.auth().currentUser;
-  firebase
-  .firestore()
-  .collection(`users/${user.uid}/cats`)
-  .doc(catId)
-  .get()
-  .then((snapshot) => {
-  if (snapshot.exists) {
-  setName(snapshot.data());
-  console.log(snapshot.data());
-  console.log("Data fetched successfully")
-  } else {
-  console.log('Cat does not exist');
-  }
-  });
-  }, []);
+    const user = firebase.auth().currentUser;
+    firebase
+      .firestore()
+      .collection(`users/${user.uid}/cats`)
+      .doc(catId)
+      .get()
+      .then((snapshot) => {
+        if (snapshot.exists) {
+          setName(snapshot.data());
+          setCatState(snapshot.data().catState); // set the initial value of catState from the database
+          console.log(snapshot.data());
+          console.log('Data fetched successfully');
+        } else {
+          console.log('Cat does not exist');
+        }
+      });
+  }, [catId]);
   
   const Update = () => {
+    const user = firebase.auth().currentUser;
   
-  const user = firebase.auth().currentUser;
-
-  if (catState) {
-    firebase
-  .firestore()
-  .collection(`users/${user.uid}/cats`)
-  .doc(catId).update({
-      catState: catState,
-    });
-  }
-  //refresh data after update 
-  firebase
-  .firestore()
-  .collection(`users/${user.uid}/cats`)
-  .doc(catId).get().then((snapshot) => {
-    if (snapshot.exists) {
-      setName(snapshot.data());
-      console.log(snapshot.data())
-      alert('Changes made successfully!');
-    } else {
-      console.log('Cat does not exist');
+    if (catState) {
+      firebase
+        .firestore()
+        .collection(`users/${user.uid}/cats`)
+        .doc(catId)
+        .update({
+          catState: catState,
+        })
+        .then(() => {
+          // refresh data after update
+          firebase
+            .firestore()
+            .collection(`users/${user.uid}/cats`)
+            .doc(catId)
+            .get()
+            .then((snapshot) => {
+              if (snapshot.exists) {
+                setName(snapshot.data());
+                setCatState(snapshot.data().catState); // update the value of catState from the database
+                console.log(snapshot.data());
+                alert('Changes made successfully!');
+              } else {
+                console.log('Cat does not exist');
+              }
+            });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
-  });
   
   };
   return (
