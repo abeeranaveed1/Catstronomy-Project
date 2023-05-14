@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput, Dimensions } from 'react-native'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import React, {useState} from 'react';
 import 'react-native-gesture-handler';
@@ -32,13 +32,14 @@ loginUser = async(email,password)=>{
 }
 }
 
-
+const height=Dimensions.get('screen').height;
+const width=Dimensions.get('screen').width;
 
 
 
   return (
-    <View style={{margin:0,backgroundColor:'#f8c8dc', width:wp(100), height:hp(100)}}>
-    <View style={{width:wp(100), height:hp(22), backgroundColor:'orange', alignItems:'center', justifyContent:'center'}}>
+    <View style={{margin:0,backgroundColor:'#f8c8dc', width:'100%', flex:1}}>
+    <View style={{width:'100%', height:hp(22), backgroundColor:'orange', alignItems:'center', justifyContent:'center'}}>
     <Image source={require('../images/Signup.png')} style={{width:wp(100), height:hp(22)}}/>
     </View>
     <View>
