@@ -6,7 +6,8 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import Styling from '../CustomProperties/Theme2'
 
-
+const height=Dimensions.get('screen').height;
+const width=Dimensions.get('screen').width;
 const Dashboard = ({navigation}) => {
    const [name , setName] = useState('')
 
@@ -30,7 +31,7 @@ const Dashboard = ({navigation}) => {
   return (
     <View style={{backgroundColor:'black'}}>
       <ImageBackground source={require('../images/background.png')} style={{opacity:.9}}>
-      <View style={{height:hp(10), alignContent:'center', justifyContent:'center'}}>
+      <View style={{height:HEIGHT*(10), alignContent:'center', justifyContent:'center'}}>
         <Styling title="Catstronomy" style={{color:'purple',fontSize:40, textAlign:'center'}}/></View>
      
      <View style={{ height:hp(35), flexDirection:'row', justifyContent:'space-evenly'}}>

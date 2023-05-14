@@ -9,7 +9,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 const Navbar = (props) => {
   return (
     <View>
-     <View style={{backgroundColor: theme.colors.primary, width: wp(100), height: hp(6), flexDirection: 'row', justifyContent: 'space-between'}}> 
+     <View style={{backgroundColor: theme.colors.primary, width: '100%', height: height*0.06, flexDirection: 'row', justifyContent: 'space-between'}}> 
      <Avatar.Icon size={25} icon="menu" style={{backgroundColor:'transparent',alignSelf: 'center'}}/>
        <Text style={{alignSelf: 'center', color: 'white'}}> Welcome {props.name} </Text>
      

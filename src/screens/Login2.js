@@ -3,15 +3,17 @@ import { SafeAreaView,
   View,
   StatusBar,
   TouchableOpacity,
-  Text, Button } from 'react-native'
+  Text, Button, Dimensions } from 'react-native'
 import React ,{useContext, useState, useRef} from 'react'
 import { useTheme, Avatar, RadioButton } from 'react-native-paper';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import { TextInput } from 'react-native-gesture-handler';
+import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import DatePicker from 'react-native-date-picker'
 import theme from '../CustomProperties/Theme';
 import {firebase} from '../../config'
 
+const height=Dimensions.get('screen').height;
+const width=Dimensions.get('screen').width;
 
 const Login2 = ({navigation}) => {
   const [firstName, setFirstName] = useState('');
@@ -135,9 +137,11 @@ const validation = ()=>{
   const [date, setDate] = useState(new Date())
   const [gender, setGender] = React.useState('first');
   return (
-    <View style={{backgroundColor: theme.colors.primary, width: wp(100), height: hp(100),flexDirection:'column',flex:1, justifyContent: 'center'}}>
-      <View style={{backgroundColor: theme.colors.secondaryContainer, width: wp(90), borderRadius: 8
-    , height: hp(85), alignSelf: 'center', alignItems: 'center', justifyContent: 'space-evenly'}}>
+    <ScrollView>
+
+  <View style={{backgroundColor: theme.colors.primary, width: '100%',flexDirection:'column',flex:1, justifyContent: 'center',padding:5}}>
+      <View style={{backgroundColor: theme.colors.secondaryContainer, width: width*0.99, borderRadius: 8
+    , height: height*0.85, alignSelf: 'center', alignItems: 'center', justifyContent: 'space-evenly'}}>
       
       <Avatar.Icon size={64} icon="account" color='orange' style={{backgroundColor:'grey', marginTop: 5}}/>
       <Text> User Profile </Text>
@@ -158,7 +162,7 @@ const validation = ()=>{
       }}
       value={lastName}/>
       </View>
-      <Text style={{color:'red',position:'absolute',top:215,left:20}}> {textFieldError} </Text>
+      <Text style={{color:'red',position:'absolute',top:height*0.3,left:width*0.10}}> {textFieldError} </Text>
       <View>
       <TextInput style={styles.textform} placeholder="Email Address"placeholderTextColor="white"
       onChangeText={(email)=> setEmail(email)}
@@ -204,13 +208,14 @@ const validation = ()=>{
       
       </View>
       {/* <Text> Date of Birth </Text> */}
-      <View style={{width: wp(80), borderRadius: 10}}>
+      <View style={{width: width*0.80, borderRadius: 10}}>
       <Button  color={'grey'} title='Register' 
       onPress={()=> {validation();
       registerUser(email,password,firstName, lastName, gender);}} />
       </View>
     </View>
     </View>
+    </ScrollView>
   )
 }
 
@@ -220,11 +225,11 @@ const styles = StyleSheet.create({
   textform:{
     border: 'solid', 
     backgroundColor: 'grey', 
-    width: wp(80),
+    width: width*0.80,
     textAlign: 'center',
   },
   textformfirst:{
-    width: wp(40),
+    width: width*0.40,
     borderTopLeftRadius: 8,  
     border: 'solid', 
     backgroundColor: 'grey', 
@@ -232,7 +237,7 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   textformSecond: {
-    width: wp(40),
+    width: width*0.40,
     borderTopRightRadius: 8,  
     border: 'solid', 
     backgroundColor: 'grey', 
@@ -240,7 +245,7 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   textformpw: {
-    width: wp(80),
+    width: width*0.80,
     borderBottomLeftRadius: 8,
     borderBottomRightRadius: 8,  
     border: 'solid', 
