@@ -41,6 +41,7 @@ const Wellness = ({navigation}) => {
   return (
     <View style={styles.container}>
       <FlatList 
+         showsVerticalScrollIndicator={false}
         data={Wellness}
         renderItem={renderFAQ}
         keyExtractor={(item) => item.id}

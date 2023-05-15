@@ -44,19 +44,20 @@ loginUser = async(email,password)=>{
               <View
                 style={{
                   width: "100%",
-                  height: height * 0.22,
+                  height: height * 0.16,
                   backgroundColor: "orange",
                   alignItems: "center",
                   justifyContent: "center",
+                  paddingVertical: "9%"
                 }}
               >
                 <Image
                   source={require("../images/Signup.png")}
-                  style={{ width: "100%", height: height * 0.22 }}
+                  style={{ width: "100%", height: height * 0.22,resizeMode:'contain' }}
                 />
               </View>
               <ScrollView>
-                <View style={{ flex: 1, paddingVertical: "9%" }}>
+                <View style={{ flex: 1 }}>
                   <View>
                     <Styling
                       title="MEOWCOME BACK"

@@ -137,9 +137,8 @@ const validation = ()=>{
   const [date, setDate] = useState(new Date())
   const [gender, setGender] = React.useState('first');
   return (
-    <ScrollView>
-
-  <View style={{backgroundColor: theme.colors.primary, width: '100%',flexDirection:'column',flex:1, justifyContent: 'center',padding:5}}>
+  <View style={{backgroundColor: theme.colors.primary, width: '100%',flexDirection:'column',flex:1, justifyContent: 'center',padding:'5%'}}>
+          <ScrollView showsVerticalScrollIndicator={false}>
       <View style={{backgroundColor: theme.colors.secondaryContainer, width: width*0.99, borderRadius: 8
     , height: height*0.85, alignSelf: 'center', alignItems: 'center', justifyContent: 'space-evenly'}}>
       
@@ -214,8 +213,8 @@ const validation = ()=>{
       registerUser(email,password,firstName, lastName, gender);}} />
       </View>
     </View>
-    </View>
     </ScrollView>
+    </View>
   )
 }
 

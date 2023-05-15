@@ -15,7 +15,7 @@ const HomeScreen = ( {navigation} ) => {
         </View>
         <View style={{width:'100%', height:height*0.50}}>
         <Image source={require('../images/HomeScreenCat.png')} style={{width: width*0.7,
-        height:height*0.4, marginTop:height*0.080,marginLeft:width*0.5}}/>
+        height:height*0.4, marginTop:'25 %',marginLeft:'40%'}}/>
         </View>
         <TouchableOpacity style={{backgroundColor:'#ff85a2', width:'80%', alignSelf:'center', flexDirection:'row',
         justifyContent:'center',

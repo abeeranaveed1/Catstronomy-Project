@@ -41,6 +41,7 @@ const Safe = ({navigation}) => {
   return (
     <View style={styles.container}>
       <FlatList 
+       showsVerticalScrollIndicator={false}
         data={Safety}
         renderItem={renderFAQ}
         keyExtractor={(item) => item.id}

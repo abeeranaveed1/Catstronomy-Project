@@ -7,7 +7,7 @@ import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-nat
 
 const Behave = () => {
   return (
-    <View style={{height:hp(100), width:wp(100)}}>
+    <View style={{flex:1}}>
             <ImageBackground source={require('../images/background.png')} style={{width:'100%',height:hp(100), opacity:.85, alignItems:'center', backgroundColor:'orange'}}>
 
       <GetBehave/>

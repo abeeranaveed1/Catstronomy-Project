@@ -41,6 +41,7 @@ const NutritionFAQ = ({navigation}) => {
   return (
     <View style={styles.container}>
       <FlatList 
+        showsVerticalScrollIndicator={false}
         data={Nutrition}
         renderItem={renderFAQ}
         keyExtractor={(item) => item.id}

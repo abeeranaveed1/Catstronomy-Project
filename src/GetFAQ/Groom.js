@@ -40,7 +40,8 @@ const Groom = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <FlatList 
+      <FlatList
+        showsVerticalScrollIndicator={false}
         data={groom}
         renderItem={renderFAQ}
         keyExtractor={(item) => item.id}
