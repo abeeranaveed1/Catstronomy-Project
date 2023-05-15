@@ -239,6 +239,18 @@ console.log("User does not exist")
       <Styling title="Years" style={{alignSelf:'center', marginLeft:5, marginTop:5, color:'#564256'}}/>
       </View>
         <View style={{height:height*0.01}}></View>
+        <View style={{flexDirection:'row',justifyContent:'space-between',marginBottom:5}}>
+        <TouchableOpacity style={{backgroundColor:'#D496A7',height:height*0.05,marginTop:10,borderRadius:15,width:width*0.25,alignItems:'center',justifyContent:'center'}}
+        onPress={()=>navigation.navigate('Dashboard')}>
+          <Styling title='Discard' style={{color:'#564256'}}/>
+        </TouchableOpacity>
+        <TouchableOpacity style={{backgroundColor:'#D496A7',height:height*0.05,marginTop:10,borderRadius:15,width:width*0.53,alignItems:'center',justifyContent:'center'}}
+        onPress={()=> {
+          Update();
+          }}>
+        <Styling title='Update Changes' style={{color:'#564256'}}/>
+        </TouchableOpacity>
+        </View>
         </ScrollView>
           </View>
       </View>
@@ -315,7 +327,7 @@ console.log("User does not exist")
       //   <View style={{height:height*0.01}}></View>
       //   </ScrollView>
 // <View style={{height:height*0.10,width:width*0.80}}>
-// <View style={{flexDirection:'row',justifyContent:'space-between',marginBottom:5}}>
+// {/* <View style={{flexDirection:'row',justifyContent:'space-between',marginBottom:5}}>
 //         <TouchableOpacity style={{backgroundColor:'#D496A7',height:height*0.05,marginTop:10,borderRadius:15,width:width*0.25,alignItems:'center'}}
 //         onPress={()=>navigation.navigate('Dashboard')}>
 //           <Styling title='Discard' style={{marginTop:7,color:'#564256'}}/>
@@ -327,7 +339,7 @@ console.log("User does not exist")
 //         <Styling title='Update Changes' style={{marginTop:7,color:'#564256'}}/>
 //         </TouchableOpacity>
 //         </View>
-// </View>
+// </View> */}
 //       </View>
 //     </View>
   )

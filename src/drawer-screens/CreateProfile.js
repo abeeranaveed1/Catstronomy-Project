@@ -149,20 +149,22 @@ console.log("Discarded")
     } 
     
     
-    
+    const height=Dimensions.get('screen').height;
+    const width=Dimensions.get('screen').width;
 
 
   
   return (
-    <View style={{backgroundColor:'pink',height:hp(85), width:wp(100)}}>
-      <ImageBackground source={require('../images/background.png')} style={{width:'100%',height:hp(100), overflow:'hidden', opacity:.75, alignItems:'center', backgroundColor:'orange',marginTop:'-20%'}}>
+    <View style={{backgroundColor:'pink',flex:1, width:'100%'}}>
+        <ScrollView>
+
+      <ImageBackground source={require('../images/background.png')} style={{width:'100%',height:hp(100), overflow:'hidden', opacity:.75, alignItems:'center', backgroundColor:'orange',marginTop:-height*0.05}}>
       {/*<TouchableOpacity
      
       style={[styles.circle, { width: width/2, height: width/2, borderRadius: width/4, marginTop:'21%' }]}>
 
   </TouchableOpacity> */}
-        
-        <View style={{backgroundColor:'white',justifyContent:'space-between',marginTop:hp(15),width:wp(95), height:hp(75), alignSelf:'center', alignItems:'center', justifyContent:'space-evenly',
+        <View style={{backgroundColor:'white',justifyContent:'space-between',marginTop:height*0.12,width:'95%', height:hp(75), alignSelf:'center', alignItems:'center', justifyContent:'space-evenly',
       borderTopLeftRadius:25, borderTopRightRadius:25,borderBottomLeftRadius:25, borderBottomRightRadius:25,
       shadowOffset: {width: -40, height: 1},  
       shadowColor: '#ff0026',  
@@ -328,8 +330,8 @@ borderBottomRightRadius:20,borderBottomLeftRadius:20,backgroundColor:'white', wi
       shadowOffset: {width: -40, height: 1},  
       shadowColor: '#ff0026',  
       shadowOpacity: 0.1,  
-      shadowRadius: 1, elevation: 15}}>
-        <Styling title="Discard Changes" style={{color: 'purple',textAlign:'center',marginTop:6}}/>
+      shadowRadius: 1, elevation: 15,justifyContent:'center'}}>
+        <Styling title="Discard Changes" style={{color: 'purple',textAlign:'center'}}/>
       </TouchableOpacity>
       <TouchableOpacity 
       onPress={() => {
@@ -337,11 +339,12 @@ borderBottomRightRadius:20,borderBottomLeftRadius:20,backgroundColor:'white', wi
       style={{shadowOffset: {width: -40, height: 1},  
       shadowColor: '#ff0026',  
       shadowOpacity: 0.1,  
-      shadowRadius: 1, elevation: 15,backgroundColor:'pink',height:hp(5), width:wp(40), borderRadius:10}}>
-        <Styling title="Save Changes" style={{color: 'purple',textAlign:'center', marginTop:6}}/>
+      shadowRadius: 1, elevation: 15,backgroundColor:'pink',height:hp(5), width:wp(40), borderRadius:10,justifyContent:'center'}}>
+        <Styling title="Save Changes" style={{color: 'purple',textAlign:'center'}}/>
       </TouchableOpacity>
       </View>
         </ImageBackground>
+        </ScrollView>
     </View>
   )
 }

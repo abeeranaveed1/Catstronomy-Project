@@ -95,7 +95,7 @@ const Dashboard = ({navigation}) => {
     shadowOpacity: 0.2,  
     shadowRadius: 1, elevation: 30}}>
      
-     <Image source={require('../logos/breed.png')} style={{width:width*0.30, height:height*0.15, alignSelf:'center',resizeMode:'contain'}}/>
+     <Image source={require('../logos/breed.png')} style={{width:width*0.30, height:height*0.15, alignSelf:'center'}}/>
      <Styling title="Mood Detection" style={{alignSelf:'center', fontSize:24,color:'#6a6315'}}/>
    
      </TouchableOpacity>

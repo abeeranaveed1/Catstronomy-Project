@@ -1,4 +1,4 @@
-import {Image, ImageBackground, StyleSheet, Text, View, ScrollView } from 'react-native'
+import {Image, ImageBackground, StyleSheet, Text, View, ScrollView, Dimensions } from 'react-native'
 import React from 'react'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import Styling from '../CustomProperties/Theme2'
@@ -9,7 +9,8 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 const FAQ = ({navigation}) => {
 
 
-
+const height=Dimensions.get('screen').height;
+const width=Dimensions.get('screen').width;
 
   
   return (
@@ -22,20 +23,20 @@ const FAQ = ({navigation}) => {
         <View style={{height:'33.33%', width:wp(90), flexDirection:'row', justifyContent:'space-evenly'}}>
         <TouchableOpacity
         onPress={()=>navigation.navigate('Health')}
-        style={{backgroundColor:'white', height:'90%', width:wp(40), marginTop:hp(1.5),
+        style={{backgroundColor:'white', height:'90%', width:wp(40), marginTop:hp(1.5),  paddingHorizontal:20,
       borderTopLeftRadius:30,borderTopRightRadius:30,
       borderBottomLeftRadius:30, borderBottomRightRadius:30,alignItems:'center'}}>
-                         <Image source={require('../images/Health.png')} style={{alignSelf:'center',height:hp(20),width:wp(30)}}/>
-                <Styling title='Health and Wellness' style={{color:'purple', fontSize:20, marginTop:hp(-2.5)}}/>
+                         <Image source={require('../images/Health.png')} style={{alignSelf:'center',height:hp(20),width:wp(30),resizeMode:'contain'}}/>
+                <Styling title='Health and Wellness' style={{color:'purple', fontSize:height*0.018, marginTop:hp(-2.5)}}/>
 
 
 </TouchableOpacity>
 <TouchableOpacity onPress={()=>navigation.navigate('Behave')}
  style={{backgroundColor:'white', height:'90%', width:wp(40), marginTop:hp(1.5),
-      borderTopLeftRadius:30,borderTopRightRadius:30,
+      borderTopLeftRadius:30,borderTopRightRadius:30,  paddingHorizontal:20,
       borderBottomLeftRadius:30, borderBottomRightRadius:30, alignItems:'center'}}>
-<Image source={require('../images/Behavior.png')} style={{alignSelf:'center',height:hp(17),width:wp(40),marginTop:10}}/>
-                <Styling title='Behavior' style={{color:'purple', fontSize:20,marginTop:-6.5}}/>
+<Image source={require('../images/Behavior.png')} style={{alignSelf:'center',height:hp(17),width:wp(40),marginTop:10,resizeMode:'contain'}}/>
+                <Styling title='Behavior' style={{color:'purple', fontSize:height*0.018,marginTop:-6.5}}/>
 
 </TouchableOpacity>
 
@@ -44,10 +45,11 @@ const FAQ = ({navigation}) => {
         <TouchableOpacity
         onPress={()=>navigation.navigate('Nutrition')}
         style={{backgroundColor:'white', height:'90%', width:wp(40), marginTop:hp(1.5),
+        paddingHorizontal:20,
       borderTopLeftRadius:30,borderTopRightRadius:30,
       borderBottomLeftRadius:30, borderBottomRightRadius:30, alignSelf:'center',alignItems:'center'}}>
-               <Image source={require('../images/Nutrition.png')} style={{alignSelf:'center',height:hp(20),width:wp(30)}}/>
-                <Styling title='Nutrition' style={{color:'purple', fontSize:20, marginTop:hp(-3)}}/>
+               <Image source={require('../images/Nutrition.png')} style={{alignSelf:'center',height:hp(20),width:wp(30),resizeMode:'contain'}}/>
+                <Styling title='Nutrition' style={{color:'purple', fontSize:height*0.018, marginTop:hp(-3)}}/>
 
 </TouchableOpacity>
         </View>
@@ -56,19 +58,20 @@ const FAQ = ({navigation}) => {
         <TouchableOpacity 
         onPress={()=>navigation.navigate('Safety')}
         style={{backgroundColor:'white', height:'90%', width:wp(40), marginTop:hp(1.5),
-      borderTopLeftRadius:30,borderTopRightRadius:30,
+      borderTopLeftRadius:30,borderTopRightRadius:30,  paddingHorizontal:20,
       borderBottomLeftRadius:30, borderBottomRightRadius:30,alignItems:'center'}}>
-                <Image source={require('../images/Safety.png')} style={{alignSelf:'center',height:hp(20),width:wp(30)}}/>
-                <Styling title='Safety' style={{color:'purple', fontSize:20, marginTop:hp(-2)}}/>
+                <Image source={require('../images/Safety.png')} style={{alignSelf:'center',height:hp(20),width:wp(30),resizeMode:'contain'}}/>
+                <Styling title='Safety' style={{color:'purple', fontSize:height*0.018, marginTop:hp(-2)}}/>
 
 </TouchableOpacity>
 <TouchableOpacity 
 onPress={()=>navigation.navigate('Grooming')}
 style={{backgroundColor:'white', height:'90%', width:wp(40), marginTop:hp(1.5),
       borderTopLeftRadius:30,borderTopRightRadius:30,
+      paddingHorizontal:20,
       borderBottomLeftRadius:30, borderBottomRightRadius:30, alignItems:'center'}}>
                 <Image source={require('../images/grooming.png')} style={{alignSelf:'center',height:hp(20),width:wp(30)}}/>
-                <Styling title='Grooming' style={{color:'purple', fontSize:20, marginTop:hp(-2)}}/>
+                <Styling title='Grooming' style={{color:'purple', fontSize:height*0.018, marginTop:hp(-2)}}/>
 
 </TouchableOpacity>
           
