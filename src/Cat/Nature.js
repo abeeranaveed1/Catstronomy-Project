@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View, Image} from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View, Image, useWindowDimensions} from 'react-native'
 import React, { useState, useEffect} from 'react'
 import { TextInput } from 'react-native-gesture-handler'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
@@ -70,16 +70,17 @@ import {AntDesign, Ionicons, MaterialIcons,FontAwesome5,MaterialCommunityIcons,F
       }
     };
     
-
+    const height=useWindowDimensions('screen').height;
+    const width=useWindowDimensions('screen').width;
   return (
-    <View style={{height:hp(110), width:wp(100), alignItems:'center', backgroundColor:'black'}}>
+    <View style={{height:'100%',  flex:1, alignItems:'center', backgroundColor:'black'}}>
       <Image source={require('../images/background.png')} style={{width:'100%',height:'100%', overflow:'hidden', opacity:0.8}}/>
-      <View style={{backgroundColor:'pink',height:hp(50),width:wp(90),marginTop:'-171%',
-    borderTopLeftRadius:20,borderTopRightRadius:20, flexDirection:'row',opacity:0.85}}>
-    <Image source={require('../images/Catfish.png')} style={{marginTop:100,marginLeft:-40,width:'40%',height:'50%'}}/>
-    <Image source={require('../images/catfish2.png')} style={{marginLeft:-2,width:'40%',height:'50%'}}/>
-    <Image source={require('../images/catfish3.png')} style={{marginLeft:-15,marginTop:130,width:'50%',height:'40%'}}/>
-  </View>
+      <View style={{backgroundColor:'pink',height:'50%',width:'90%',marginTop:-height*0.81,
+    borderTopLeftRadius:20,borderTopRightRadius:20, flexDirection:'row',opacity:0.85,justifyContent:'center'}}>
+      <Image source={require('../images/Catfish.png')} style={{resizeMode:'contain',height:height*0.2,width:width*0.4,position:'absolute',left:-width*0.12,top:height*0.15}}/>
+      <Image source={require('../images/catfish2.png')} style={{resizeMode:'contain',height:height*0.19,width:width*0.4,position:'absolute'}}/>
+      <Image source={require('../images/catfish3.png')} style={{resizeMode:'contain',height:height*0.22,width:width*0.4,position:'absolute',left:width*0.61,top:height*0.15}}/>
+    </View>
     <View style={{backgroundColor:'white',height:hp(25),width:wp(90),borderBottomLeftRadius:20,borderBottomRightRadius:20
   ,alignItems:'center', justifyContent:'space-evenly', opacity:0.7,
   shadowOffset: {width: -50, height: 3},  

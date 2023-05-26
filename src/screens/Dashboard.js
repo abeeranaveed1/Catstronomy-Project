@@ -37,14 +37,14 @@ const Dashboard = ({navigation}) => {
      <View style={{ height:height*0.35, flexDirection:'row', justifyContent:'space-evenly'}}>
      <TouchableOpacity
      onPress={()=>navigation.navigate('Cat Profile')}
-     style={{backgroundColor:'#99bbff', height:height*0.30, width:width*0.45, alignSelf:'center'
-    ,borderRadius:35, marginLeft:4,
+     style={{backgroundColor:'#99bbff', height:height*0.30, width:width*0.45, alignSelf:'center',justifyContent:'center'
+    ,borderRadius:35, marginLeft:width*0.005,
     shadowOffset: {width: -50, height: 3},  
     shadowColor: 'blue',  
     shadowOpacity: 0.2,  
     shadowRadius: 1, elevation: 25}}> 
       
-         <Image source={require('../logos/CatProfile.png')} style={{alignSelf:'center',height:height*0.20,width:width*0.30}}/>
+         <Image source={require('../logos/CatProfile.png')} style={{alignSelf:'center',height:height*0.20,resizeMode:'contain'}}/>
          <Styling title="Cat Profile" style={{textAlign:'center',fontSize:20, color:'#001a4d'}}/> 
          
       </TouchableOpacity>

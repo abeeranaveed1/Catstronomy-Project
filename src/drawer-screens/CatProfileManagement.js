@@ -23,7 +23,7 @@ shadowOffset: { height: 1},
 shadowColor: '#ff0026',  
 shadowOpacity: 0.1,  
 shadowRadius: 1, elevation: 15}}>
-    <View style={{ height:'61%', width:'90%', alignSelf:'center', marginTop:'7.5%',overflow:'hidden',
+    <View style={{ height:'61%', width:width*1, alignSelf:'center', marginTop:height*0.0425,
   borderTopLeftRadius:15,borderBottomLeftRadius:15,borderTopRightRadius:15,borderBottomRightRadius:15}}>
 <View style={{flex:1, opacity:.85,backgroundColor:'pink',zIndex:-1}}>
     <New />

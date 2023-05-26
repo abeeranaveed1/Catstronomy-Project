@@ -45,57 +45,72 @@ const Sidebar = ({navigation}) => {
       setUpdate(!update);
     }
 
+    const category=[{title:'Home',icon:'ios-home',nav:'Dashboard'},
+    {title:'Cat Proile',icon:'pets',nav:'Cat Profile'},
+    {title:'FAQ',icon:'hands-helping',nav:'FAQ'},
+    {title:'Locate Vets',icon:'location-pin',nav:'Locate Vets'}];
+    const category2=[{title:'Breed Detection',nav:'Locate Vets'},
+    {title:'Mood Detection',nav:'Locate Vets'}
+  ]
+  const category3=[{title:'User Profile',icon:'user',nav:'Profile'},
+  {title:'Logout',icon:'logout',nav:null
+}];
   return (
     <View>
-      <View style={{backgroundColor:'#ffccd5',height:height*0.25, alignItems:'center'}}>
-      <Image source={{uri: name.profilePicture}} style={{height:145,width:145,borderRadius:500,borderWidth:2, marginTop:5}}/>
+      <View style={{backgroundColor:'#ffccd5',height:height*0.25, alignItems:'center',justifyContent:'center'}}>
+      <Image source={{uri: name.profilePicture}} style={{height:145,width:145,borderRadius:500,borderWidth:2}}/>
         <View style={{flexDirection:'row',marginTop:2}}>
         <Styling title={name.firstName} style={{marginRight:2.5, color:'purple'}}/>
         <Styling title={name.lastName} style={{color:'purple'}}/>
 </View>
       </View>
-      <View style={{backgroundColor:'pink', height:'60%',justifyContent:'space-evenly'}}>
-        <Styling title="Menu" style={{color:'#bd5dd5',marginBottom:'-20%',marginLeft:3}}/>
-        <View style={{justifyContent:'space-evenly',height:'60%',borderBottomColor:'purple'}}>
-      <TouchableOpacity style={{flexDirection:'row'}} onPress={()=>navigation.navigate('Dashboard')}>
-        <Ionicons name="ios-home" size={24} color="purple" style={{marginLeft:20}}/>
-          <Styling title="Home" style={{fontSize: 20,marginLeft:10, color:'purple'}}/>
-        </TouchableOpacity>
-        <TouchableOpacity style={{flexDirection:'row', alignItems:'center'}} onPress={()=>navigation.navigate('Cat Profile')}>
-          <MaterialIcons name='pets' color="purple" style={{marginLeft:20}} size={24}/>
-          <Styling title="Cat Profile" style={{fontSize: 20,marginLeft:10, color:'purple'}}/>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={()=>navigation.navigate('FAQ')} style={{flexDirection:'row', alignItems:'center'}}>
-          <FontAwesome5 name="hands-helping" color="purple" style={{marginLeft:20}} size={24}/>
-          <Styling title="FAQ" style={{fontSize: 20,marginLeft:10, color:'purple'}}/>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={()=>navigation.navigate('Locate Vets')} style={{flexDirection:'row', alignItems:'center'}}>
-        <MaterialIcons name='location-pin' color="purple" style={{marginLeft:20}} size={24}/>
-        <Styling title="Locate Vets" style={{fontSize: 20,marginLeft:10, color:'purple'}}/>
-        </TouchableOpacity>
+      <View style={{backgroundColor:'pink',height:'100%'}}>
+        <View style={{justifyContent:'space-evenly',borderBottomColor:'purple',paddingVertical:height*0.02}}>
+        <Styling title="Menu" style={{color:'#bd5dd5',marginLeft:width*0.02}}/>
+        {category.map((item,index)=>{
+          return(
+            <TouchableOpacity onPress={()=>navigation.navigate(item.nav)} style={{flexDirection:'row', alignItems:'center',marginTop:height*0.03}}>
+              {index==1 || index==3? <MaterialIcons name={item.icon} color="purple" style={{marginLeft:width*0.05,width:width*0.07}} size={24}/>: index==0?  <Ionicons name="ios-home" size={24} color="purple" style={{marginLeft:20,width:width*0.07}}/>: <FontAwesome5 name="hands-helping" color="purple" style={{marginLeft:20,width:width*0.07}} size={24}/>}
+        <View style={{width:'100%'}}>
+        <Styling title={item.title} style={{fontSize: 20,marginLeft:width*0.05, color:'purple'}}/>
         </View>
-        <Styling title="Other Features" style={{color:'#bd5dd5',marginLeft:3}}/>
-        <View style={{backgroundColor:'pink',height:'20%',justifyContent:'space-around'}}>
-        <TouchableOpacity onPress={()=>navigation.navigate('Locate Vets')}>
-        <Styling title="Breed Detection" style={{fontSize: 20,marginLeft:10, color:'purple'}}/>
         </TouchableOpacity>
-        <TouchableOpacity onPress={()=>navigation.navigate('Locate Vets')}>
-        <Styling title="Mood Detection" style={{fontSize: 20,marginLeft:10, color:'purple'}}/>
-        </TouchableOpacity>
+          )
+        })} 
         </View>
-      </View>
-      <View style={{backgroundColor:'#ffb3bf',height:'15%', justifyContent:'space-evenly',paddingVertical:'5%'}}>
-      <Styling title="Settings" style={{color:'#bd5dd5',marginLeft:3,marginTop:'-4%'}}/>
-      <TouchableOpacity onPress={()=>navigation.navigate('Profile')} style={{flexDirection:'row', alignItems:'center'}}>
+        <View style={{backgroundColor:'pink',height:'18%',paddingVertical:height*0.02}}>
+        <Styling title="Other Features" style={{color:'#bd5dd5',marginLeft:width*0.02}}/>
+        {category2.map((items)=>{
+          return(
+          <TouchableOpacity style={{marginTop:height*0.03,marginLeft:width*0.02,}} onPress={()=>navigation.navigate(items.nav)}>
+          <Styling title={items.title} style={{fontSize: 20,marginLeft:10, color:'purple'}}/>
+          </TouchableOpacity>
+          )
+        })}
+        </View>
+         <View style={{backgroundColor:'#ffb3bf',height:'18%',paddingVertical:height*0.02}}>
+      <Styling title="Settings" style={{color:'#bd5dd5',marginLeft:width*0.02}}/>
+      {/* <TouchableOpacity onPress={()=>navigation.navigate('Profile')} style={{flexDirection:'row', alignItems:'center'}}>
         <FontAwesome name='user' color='purple' style={{marginLeft:20}} size={24}/>
         <Styling title="User Profile" style={{fontSize: 17,marginLeft:10, color:'purple'}}/>
         </TouchableOpacity>
         <TouchableOpacity onPress={()=> firebase.auth().signOut()} style={{flexDirection:'row', alignItems:'center'}}>
         <MaterialCommunityIcons name='logout' color='purple' style={{marginLeft:18}} size={24}/>
         <Styling title="Logout" style={{fontSize: 17,marginLeft:6, color:'purple'}}/>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
+        {category3.map((items,index)=>{
+          return(
+            <TouchableOpacity onPress={()=>{items.nav!=null?navigation.navigate(items.nav):firebase.auth().signOut()}} style={{flexDirection:'row', alignItems:'center',marginTop:height*0.03}}>
+            {index==0?<FontAwesome name={items.icon} color='purple' style={{marginLeft:width*0.05,width:width*0.07}} size={24}/>:<MaterialCommunityIcons name={items.icon} color='purple' style={{marginLeft:width*0.05,width:width*0.07}} size={24}/>}
+            <Styling title={items.title} style={{fontSize: 17,marginLeft:10, color:'purple'}}/>
+            </TouchableOpacity>
+          )
+        })}
       </View>
     </View>
+   
+    
+      </View>
   )
 }
 export default Sidebar;

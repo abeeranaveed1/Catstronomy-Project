@@ -7,7 +7,7 @@ const HomeScreen = ( {navigation} ) => {
   const height=Dimensions.get('screen').height;
   const width=Dimensions.get('screen').width;
   return (
-    <View style={{backgroundColor:'#f8c8dc',width:'100%',flex:1}}>
+    <View style={{backgroundColor:'#f8c8dc',width:'100%',flex:1,paddingVertical:height*0.025}}>
       <View style={styles.chunk}> 
         <Styling title='Welcome' style={{fontSize: 35}}/>
         <Styling title='To' style={{fontSize:35}}/>
@@ -15,11 +15,11 @@ const HomeScreen = ( {navigation} ) => {
         </View>
         <View style={{width:'100%', height:height*0.50}}>
         <Image source={require('../images/HomeScreenCat.png')} style={{width: width*0.7,
-        height:height*0.4, marginTop:'25 %',marginLeft:'40%'}}/>
+        height:height*0.4, marginTop:height*0.25,marginLeft:'40%'}}/>
         </View>
         <TouchableOpacity style={{backgroundColor:'#ff85a2', width:'80%', alignSelf:'center', flexDirection:'row',
         justifyContent:'center',
-      height:height*0.06,borderRadius:20, marginTop:height*0.015}} onPress={()=>navigation.navigate('Login')}>
+      height:height*0.06,borderRadius:20, marginTop:height*0.15}} onPress={()=>navigation.navigate('Login')}>
           <Styling title='Signin' style={{fontSize: 18,alignSelf:'center', color:'white', flexDirection:'row'}}/>
         </TouchableOpacity>
     </View>
