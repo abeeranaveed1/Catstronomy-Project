@@ -30,7 +30,7 @@ const Dashboard = ({navigation}) => {
 
   return (
     <View style={{backgroundColor:'black'}}>
-      <ImageBackground source={require('../images/background.png')} style={{opacity:.9}}>
+      <ImageBackground source={require('../images/background.png')} style={{opacity:.9,height:'100%'}}>
       <View style={{height:height*0.01, alignContent:'center', justifyContent:'center'}}>
         <Styling title="Catstronomy" style={{color:'purple',fontSize:40, textAlign:'center'}}/></View>
      
