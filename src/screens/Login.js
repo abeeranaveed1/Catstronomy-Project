@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput, Dimensions, Keyboard, ImageBackground } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput, Dimensions, Keyboard, ImageBackground, useWindowDimensions } from 'react-native'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import React, {useState} from 'react';
 import 'react-native-gesture-handler';
@@ -12,8 +12,9 @@ import { useEffect } from 'react';
 
 
 const Login = () => {
-const height=Dimensions.get('screen').height;
-const width=Dimensions.get('screen').width;
+  const height=useWindowDimensions('screen').height;
+const width=useWindowDimensions('screen').width;
+
 const navigation = useNavigation() 
 const [email, setEmail] = useState('')
 const [password, setPassword] = useState('')
@@ -77,10 +78,9 @@ useEffect(() => {
                 <Image
                   source={require("../images/Signup.png")}
                   style={{
-                    width:width*1.05,
-                    aspectRatio:1.7,
-                    transform:[{scaleY:1.5}],
-                    resizeMode: 'contain',
+                    width:width,
+                    height:height * 0.25,
+                    resizeMode: 'cover',
                   }}
                 />
               </View>

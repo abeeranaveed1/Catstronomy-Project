@@ -1,4 +1,4 @@
-import { View, Text,Image, Dimensions } from 'react-native'
+import { View, Text,Image, Dimensions, useWindowDimensions } from 'react-native'
 import React, {useState, useEffect} from 'react'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -7,10 +7,10 @@ import {firebase} from '../../config'
 import {Ionicons, MaterialIcons,FontAwesome5,MaterialCommunityIcons,FontAwesome} from '@expo/vector-icons';
 import Styling from '../CustomProperties/Theme2';
 
-const height=Dimensions.get('screen').height;
-const width=Dimensions.get('screen').width;
 
 const Sidebar = ({navigation}) => {
+  const height=useWindowDimensions('screen').height;
+  const width=useWindowDimensions('screen').width;  
   const [name , setName] = useState('');
   const [update, setUpdate] = useState(false);
   
@@ -57,7 +57,7 @@ const Sidebar = ({navigation}) => {
 }];
   return (
     <View style={{flex:1}}>
-      <View style={{backgroundColor:'#ffccd5',height:height*0.25, alignItems:'center',justifyContent:'center'}}>
+      <View style={{backgroundColor:'#ffccd5',height:height*0.30, alignItems:'center',justifyContent:'center'}}>
       <Image source={{uri: name.profilePicture}} style={{height:145,width:145,borderRadius:500,borderWidth:2}}/>
         <View style={{flexDirection:'row',marginTop:2}}>
         <Styling title={name.firstName} style={{marginRight:2.5, color:'purple'}}/>
