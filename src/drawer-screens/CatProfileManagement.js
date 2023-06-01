@@ -10,6 +10,7 @@ import { useNavigation } from '@react-navigation/native';
 const CatProfileManagement = () => {
   const height=useWindowDimensions('screen').height;
 const width=useWindowDimensions('screen').width;
+const scale=useWindowDimensions('screen').scale;
 
   const [loading, setLoading] = useState(false);
 
@@ -19,20 +20,25 @@ const width=useWindowDimensions('screen').width;
   return (
     <View style={{flex:1, backgroundColor:'black',justifyContent:'center'}}>
   <ImageBackground source={require('../images/background.png')} resizeMode="cover" style={{alignItems:'center',opacity:.95,height:'100%', width:'100%'}}>
-  <ImageBackground source={require('../images/window.png')} resizeMode="cover" style={{height:height*0.5,flex:1,width:'100%',marginTop:height*0.05,
-
-}}>
-    <View style={{ height:height*0.405, width:'100%', alignSelf:'center', marginTop:height*0.042,
+    <View style={{height:'20%',width:'100%',flex:1}}>
+    <View style={{ height:height*0.25, width:'100%', alignSelf:'center', marginTop:height*0.125,
 borderRadius:100,alignItems:'center',justifyContent:'center'}}>
-<View style={{flex:1, opacity:.85,backgroundColor:'pink',zIndex:1,width:'100%',borderTopLeftRadius:12.5,borderBottomLeftRadius:10}}>
-    <New />
-</View>
+   <View style={{position:'absolute',height:height*0.4235,alignItems:'center',width:'100%'}}>
+    <View style={{borderWidth:10,height:'100%',width:1,borderColor:'#BA8C63'}}>
+
+    </View>
     </View>
 
-  </ImageBackground>
-  <View style={{height:height*0.48,width:width*0.48,position:'absolute',top:height*0.285}}>
-  <Image source={require('../images/catwindow.png')} style={{height:height*0.27,width:200,opacity:.8,resizeMode:'cover',zIndex:1}}/>
+<View style={{height:height*0.45, opacity:.85,backgroundColor:'pink',zIndex:1,borderRadius:20,width:'100%',borderWidth:10,borderColor:'#BA8C63',justifyContent:'flex-end'}}>
+    <New />
+    <View style={{position:'absolute',height:120,width:'100%',justifyContent:'center',alignItems:'center'}}>
+    <Image source={require('../images/catwindow.png')} style={{opacity:.8,resizeMode:'contain',height:210,width:170}}/>
+    </View>
+</View>
+
+</View>
   </View>
+
   <View style={{backgroundColor:'pink', height:height*0.1, width:'100%',marginTop:height*0.235, opacity:0.7, borderTopWidth:.1,
 borderTopLeftRadius:20,borderTopRightRadius:20,
 shadowOffset: {width: -40, height: 1},  
@@ -48,6 +54,7 @@ shadowOffset: {width: -40, height: 1},
   </View>
   </ImageBackground>
     </View>
+
   )
 }
 

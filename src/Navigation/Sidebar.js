@@ -1,4 +1,4 @@
-import { View, Text,Image, Dimensions, useWindowDimensions } from 'react-native'
+import { View, Text,Image, Dimensions, useWindowDimensions, ScrollView } from 'react-native'
 import React, {useState, useEffect} from 'react'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -64,6 +64,7 @@ const Sidebar = ({navigation}) => {
         <Styling title={name.lastName} style={{color:'purple'}}/>
 </View>
       </View>
+      <ScrollView showsVerticalScrollIndicator={false}>
       <View style={{backgroundColor:'pink',height:'100%'}}>
         <View style={{justifyContent:'space-evenly',borderBottomColor:'purple',paddingVertical:height*0.02}}>
         <Styling title="Menu" style={{color:'#bd5dd5',marginLeft:width*0.02}}/>
@@ -78,7 +79,7 @@ const Sidebar = ({navigation}) => {
           )
         })} 
         </View>
-        <View style={{backgroundColor:'pink',height:'18%',paddingVertical:height*0.02}}>
+        <View style={{backgroundColor:'pink',height:'25%',paddingVertical:height*0.02}}>
         <Styling title="Other Features" style={{color:'#bd5dd5',marginLeft:width*0.02}}/>
         {category2.map((items,index)=>{
           return(
@@ -109,7 +110,7 @@ const Sidebar = ({navigation}) => {
       </View>
     </View>
    
-    
+    </ScrollView>
       </View>
   )
 }
