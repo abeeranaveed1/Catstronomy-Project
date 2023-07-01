@@ -14,6 +14,15 @@ const height=Dimensions.get('screen').height;
 const width=Dimensions.get('screen').width;
 const [uploadedImageUrl, setUploadedImageUrl] = useState(null); // Initialize uploadedImageUrl state
 
+useEffect(() => {
+  const unsubscribe = navigation.addListener('blur', () => {
+    // Refresh the page when navigating away from it
+    setUploadedImageUrl(null);
+  });
+
+  return unsubscribe;
+}, [navigation]);
+
 const NoImage = ()=>{
     if(!uploadedImageUrl){
     alert("No Image Uploaded")
@@ -24,52 +33,55 @@ const NoImage = ()=>{
 }
 
 const handleUploadPhoto = async () => {
-    try {
-      // Open the image picker or camera to select/capture an image
-      // Use a library or component of your choice to handle this step
-      const image = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        allowsEditing: true,
-        aspect: [1, 1],
-        quality: 1,
-      });
+  try {
+    const { uri: imageURI, canceled } = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+    });
 
-      if (!image.canceled) {
-        // Once the user has selected/captured an image, get its URI
-        const imageURI = image.uri;
+    if (canceled) {
+      return; // Exit if image selection/capture is cancelled
+    }
 
-        // Create a unique file name for the uploaded image
-        const fileName = `${Date.now()}.jpg`; // Example: 1626375912345.jpg
+    const response = await fetch(imageURI);
+    const blob = await response.blob();
+    const fileName = `${Date.now()}.jpeg`;
+    const storageRef = firebase.storage().ref();
+    const uploadTask = storageRef.child(`Breed/${fileName}`).put(blob);
 
-        // Reference to the firebase storage bucket
-        const storageRef = firebase.storage().ref();
-
-        // Upload the image to the "Breed" folder in the storage bucket
-        const uploadTask = storageRef.child(`Breed/${fileName}`).put(imageURI); // Use `put` instead of `putFile`
-
-        uploadTask.on(
-          'state_changed',
-          (snapshot) => {
-            // Handle progress (optional)
-            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            console.log(`Upload is ${progress}% complete`);
-          },
-          (error) => {
-            // Handle error
-            console.log('Image upload error:', error);
-          },
-          async () => {
-            // Handle successful upload
-            const imageUrl = await uploadTask.snapshot.ref.getDownloadURL();
-            setUploadedImageUrl(imageUrl);
-            console.log('Image upload success. URL:', imageUrl);
-          }
-        );
+    uploadTask.on(
+      'state_changed',
+      (snapshot) => {
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log(`Upload is ${progress}% complete`);
+      },
+      (error) => {
+        console.log('Image upload error:', error);
+      },
+      async () => {
+        const imageUrl = await uploadTask.snapshot.ref.getDownloadURL();
+        setUploadedImageUrl(imageUrl);
+        console.log('Image upload success. URL:', imageUrl);
       }
-    } catch (error) {
-      console.log('Image upload error:', error);
+    );
+  } catch (error) {
+    console.log('Image upload error:', error);
+  }
+  
+};
+useEffect(() => {
+  // Ignore the deprecated uri warning from ImagePicker
+  console.warn = (message) => {
+    if (message.includes('uri')) {
+      console.log("URI deprecated error");
+    } else {
+      // Print other warnings as usual
+      console.warn(message);
     }
   };
+}, []);
   return (
     <View style={{backgroundColor:'black'}}>
         <ImageBackground source={require('../images/background.png')} style={{opacity:.9,height:'100%'}}>
@@ -78,7 +90,10 @@ const handleUploadPhoto = async () => {
 </View>
 <View style={{backgroundColor:'white', height:height*.4,width:width*.9, opacity:.95, display:'flex',
  alignSelf:'center',
-borderRadius:40}}>
+borderRadius:40,shadowOffset: {width: -50, height: 3},  
+shadowColor: '#ff0026',  
+shadowOpacity: 0.2,  
+shadowRadius: 1, elevation: 25}}>
     <View style={{ height:height*.4, width:width*.8,
 alignSelf:'center', justifyContent:'space-evenly'}}>
  <TouchableOpacity

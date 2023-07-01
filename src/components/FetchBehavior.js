@@ -21,14 +21,15 @@ const GetBehave = ({navigation}) => {
   const renderFAQ = ({ item} ) => {
     return (
       <View
-        style={styles.itemContainer}>
+      style={styles.itemContainer}>
         <View>
-          <View style={{flexDirection:'row'}}>
-            <Styling title={item.Question} style={{color:'purple', marginBottom:5}}/>
-          </View>
-          <View style={{flexDirection:'row'}}>
-            <Styling title={item.Answer} style={{color:'purple', marginTop:5}}/>
-          </View>
+        <View style={{flexDirection:'row'}}>
+          
+          <Styling title={item.Question} style={{color:'purple', marginBottom:5}}/>
+        </View>
+        <View style={{flexDirection:'row'}}>
+          <Styling title={item.Answer} style={{color:'purple', marginTop:5}}/>
+        </View>
         </View>
       </View>
     );

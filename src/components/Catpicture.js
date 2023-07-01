@@ -61,6 +61,18 @@ const Catpicture = ({navigation,route}) => {
       alert('Profile picture updated');
       setImageUrl(imageUrl);
     };
+
+    useEffect(() => {
+      // Ignore the deprecated uri warning from ImagePicker
+      console.warn = (message) => {
+        if (message.includes('uri')) {
+          console.log("URI deprecated error");
+        } else {
+          // Print other warnings as usual
+          console.warn(message);
+        }
+      };
+    }, []);
   
     return (
       <View>
