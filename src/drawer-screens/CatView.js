@@ -1,39 +1,47 @@
-import { StyleSheet, Text, View, ImageBackground,Dimensions, Image } from 'react-native'
-import React from 'react'
-import { ScrollView, TextInput, TouchableOpacity } from 'react-native-gesture-handler';
+import { StyleSheet, Text, View, ImageBackground, Dimensions, Image } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Styling from '../CustomProperties/Theme2';
-import { useState, useEffect } from 'react';
-import {RadioButton } from 'react-native-paper';
-import {firebase} from '../../config'
+import { firebase } from '../../config';
 
-const {width} = Dimensions.get('screen');
+const { width } = Dimensions.get('screen');
 
-const CatView = ({navigation, route}) => {
-  const [loading, setLoading] = useState(false);
+const CatView = ({ navigation, route }) => {
+  const height=Dimensions.get('screen').height;
+const width=Dimensions.get('screen').width;
+  const { params = {} } = route;
+  const { catId } = params;
 
-  const userId = firebase.auth().currentUser.uid;
-  const catRef = firebase.firestore().collection('users').doc(userId).collection('cats').doc(catId);
-
-
-  const [name,setName] = useState('');
-
-  console.log(route)
-  const {params = {}} = route;
-  const {catId} = params;
+  const [name, setName] = useState({ profilePictureURL: '' });
 
   useEffect(() => {
-    if (catId) {
-      const user = firebase.auth().currentUser;
-      firebase
-        .firestore()
-        .collection(`users/${user.uid}/cats`)
-        .doc(catId)
-        .onSnapshot(doc => {
-          setName(doc.data());
-          console.log(doc.data());
-        });
-    }
+    const fetchCatData = async () => {
+      try {
+        if (catId) {
+          const user = firebase.auth().currentUser;
+          const catRef = firebase.firestore().collection(`users/${user.uid}/cats`).doc(catId);
+          const doc = await catRef.get();
+          if (doc.exists) {
+            const catData = doc.data();
+            setName(catData);
+
+            // Fetch and set the profile picture
+            if (catData.profilePicture) {
+              const url = await firebase.storage().refFromURL(catData.profilePicture).getDownloadURL();
+              setName((prevName) => ({
+                ...prevName,
+                profilePictureURL: url,
+              }));
+            }
+          }
+        }
+      } catch (error) {
+        console.log('Error fetching cat data:', error);
+      }
+    };
+
+    fetchCatData();
   }, [catId]);
 
   const [update, setUpdate] = useState(false);
@@ -127,11 +135,15 @@ const CatView = ({navigation, route}) => {
   
   return (
     <View style={{backgroundColor:'pink',height:hp(85), width:wp(100)}}>
-      <ImageBackground source={require('../images/background.png')} style={{width:'100%',height:hp(100), overflow:'hidden', opacity:.75, alignItems:'center', backgroundColor:'orange',marginTop:'-20%'}}>
-      <View style={[styles.circle, { width: width/2, height: width/2, borderRadius: width/4, marginTop:'21%' }]}>
-        <Image source={{uri: name.profilePicture}}/>
-        </View>
-        
+      <ImageBackground source={require('../images/background.png')} style={{width:'100%',height:hp(111), overflow:'hidden', opacity:.75, alignItems:'center', backgroundColor:'orange',marginTop:'-20%'}}>
+      <View style={[styles.circle, { width: width / 2, height: width / 2, borderRadius: width / 4, marginTop: '21%' }]}>
+        {name.profilePictureURL ? (
+          <Image source={{ uri: name.profilePictureURL }} style={{ width: '100%', height: '100%', borderRadius: width / 4 }} resizeMode="contain" />
+        ) : (
+          <View style={[styles.circle, { width: width / 2, height: width / 2, borderRadius: width / 4}]} resizeMode="contain">
+          </View>
+        )}
+      </View>
         <View style={{marginTop:10,width:wp(95), height:hp(47), backgroundColor:'white', alignSelf:'center', alignItems:'center', justifyContent:'space-evenly',
       borderTopLeftRadius:25, borderTopRightRadius:25,borderBottomLeftRadius:25, borderBottomRightRadius:25,
       shadowOffset: {width: -40, height: 1},  

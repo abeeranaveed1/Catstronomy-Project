@@ -78,7 +78,9 @@ const Dashboard = ({navigation}) => {
       </View>
      </View>
      <View style={{width:'100%', height:height*0.44, justifyContent:'space-evenly', alignContent:'center'}}> 
-     <TouchableOpacity style={{backgroundColor:'#66CDAA',width:width*0.90, height:height*0.15, alignSelf:'center',borderRadius:35,flexDirection:'row', justifyContent:'center',
+     <TouchableOpacity
+     onPress={()=>navigation.navigate('Breeding')}
+     style={{backgroundColor:'#66CDAA',width:width*0.90, height:height*0.15, alignSelf:'center',borderRadius:35,flexDirection:'row', justifyContent:'center',
     shadowOffset: {width: -5, height: 3},  
     shadowColor: 'green',  
     shadowOpacity: 0.2,  
@@ -89,7 +91,9 @@ const Dashboard = ({navigation}) => {
 
      
      </TouchableOpacity>
-     <TouchableOpacity style={{backgroundColor:'#e6dd7f',width:width*0.90, height:height*0.15,alignSelf:'center',borderRadius:35,flexDirection:'row', justifyContent:'center',
+     <TouchableOpacity 
+     onPress={()=>navigation.navigate('Mood')}
+     style={{backgroundColor:'#e6dd7f',width:width*0.90, height:height*0.15,alignSelf:'center',borderRadius:35,flexDirection:'row', justifyContent:'center',
     shadowOffset: {width: -5, height: 3},  
     shadowColor: 'orange',  
     shadowOpacity: 0.2,  

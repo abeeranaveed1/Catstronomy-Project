@@ -32,70 +32,46 @@ const [update, setUpdate] = useState('');
   }, [update]);
 
   function Update() {
+    const user = firebase.auth().currentUser;
+    const catRef = firebase.firestore().collection(`users/${user.uid}/cats`).doc(catId);
+  
+    const updates = {};
+  
     if (catName) {
-      firebase.firestore().collection('users')
-        .doc(firebase.auth().currentUser.uid).collection('cats').doc(catId)
-        .update({
-          catName: catName,
-        });
+      updates.catName = catName;
     }
     if (profilePicture) {
-      firebase.firestore().collection('users')
-        .doc(firebase.auth().currentUser.uid).collection('cats').doc(catId)
-        .update({
-          profilePicture: profilePicture,
-        });
+      updates.profilePicture = profilePicture;
     }
     if (catBreed) {
-      firebase.firestore().collection('users')
-        .doc(firebase.auth().currentUser.uid).collection('cats').doc(catId)
-        .update({
-          catBreed: catBreed,
-        });
+      updates.catBreed = catBreed;
     }
     if (catAgeYears) {
-      firebase.firestore().collection('users')
-        .doc(firebase.auth().currentUser.uid).collection('cats').doc(catId)
-        .update({
-          catAgeYears: catAgeYears,
-        });
+      updates.catAgeYears = catAgeYears;
     }
     if (catAgeMonths) {
-      firebase.firestore().collection('users')
-        .doc(firebase.auth().currentUser.uid).collection('cats').doc(catId)
-        .update({
-          catAgeMonths: catAgeMonths,
-        });
+      updates.catAgeMonths = catAgeMonths;
     }
     if (catGender) {
-      firebase.firestore().collection('users')
-        .doc(firebase.auth().currentUser.uid).collection('cats').doc(catId)
-        .update({
-          catGender: catGender,
-        });
+      updates.catGender = catGender;
     }
     if (catState) {
-      firebase.firestore().collection('users')
-        .doc(firebase.auth().currentUser.uid).collection('cats').doc(catId)
-        .update({
-          catState: catState,
-        });
+      updates.catState = catState;
     }
     if (catColor) {
-      firebase.firestore().collection('users')
-        .doc(firebase.auth().currentUser.uid).collection('cats').doc(catId)
-        .update({
-          catColor: catColor,
-        });
+      updates.catColor = catColor;
     }
     if (catWeight) {
-      firebase.firestore().collection('users')
-        .doc(firebase.auth().currentUser.uid).collection('cats').doc(catId)
-        .update({
-          catWeight: catWeight,
-        });
+      updates.catWeight = catWeight;
     }
-    setUpdate(!update);
+  
+    catRef.update(updates)
+      .then(() => {
+        setUpdate(!update);
+      })
+      .catch((error) => {
+        console.log("Error updating cat:", error);
+      });
   }
 
 

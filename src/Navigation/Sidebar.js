@@ -46,11 +46,11 @@ const Sidebar = ({navigation}) => {
     }
 
     const category=[{title:'Home',icon:'ios-home',nav:'Dashboard'},
-    {title:'Cat Proile',icon:'pets',nav:'Cat Profile'},
+    {title:'Cat Profile',icon:'pets',nav:'Cat Profile'},
     {title:'FAQ',icon:'hands-helping',nav:'FAQ'},
     {title:'Locate Vets',icon:'location-pin',nav:'Locate Vets'}];
-    const category2=[{title:'Breed Detection',nav:'Locate Vets'},
-    {title:'Mood Detection',nav:'Locate Vets'}
+    const category2=[{title:'Breed Detection',nav:'Breeding'},
+    {title:'Mood Detection',nav:'Mood'}
   ]
   const category3=[{title:'User Profile',icon:'user',nav:'Profile'},
   {title:'Logout',icon:'logout',nav:null

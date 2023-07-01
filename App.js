@@ -1,4 +1,5 @@
 import 'react-native-gesture-handler';
+import { StyleSheet, Text, View, SafeAreaView, Image, ImageBackground, TouchableOpacity, Linking, Dimensions } from 'react-native'
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { useState, useEffect } from 'react';
@@ -40,6 +41,9 @@ import Grooming from './src/FAQ/Grooming';
 import Health from './src/FAQ/Health';
 import Nutrition from './src/FAQ/Nutrition';
 import Safety from './src/FAQ/Safety';
+import Breeding from './src/screens/BreedDetect';
+import Mood from './src/screens/Mooddetect'
+import ResultsPage from './src/screens/Resultspage';
 
 
 
@@ -88,6 +92,22 @@ if (initialiiazing) return null;
  return(
   <Drawer.Navigator drawerContent={props=><Sidebar {...props}/>} initialRouteName='Dashboard'>
         <Drawer.Screen name="Dashboard" component={Dashboard}/>
+        <Drawer.Screen name="ResultsPage" component={ResultsPage}
+        options={{
+          drawerAnimationEnabled: false, // Disable drawer animation for smoother transition
+          cardStyleInterpolator: ({ current: { progress } }) => ({
+            cardStyle: {
+              transform: [
+                {
+                  translateX: progress.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [Dimensions.get('window').width, 0],
+                  }),
+                },
+              ],
+            },
+          }),
+        }}/>
         <Drawer.Screen name='Cat Profile' component={CatProfile}/>
         <Drawer.Screen 
    name='FAQ' 
@@ -105,7 +125,8 @@ if (initialiiazing) return null;
               <Drawer.Screen name="Health" component={Health}/>
               <Drawer.Screen name="Nutrition" component={Nutrition}/>
               <Drawer.Screen name="Safety" component={Safety}/>
-
+              <Drawer.Screen name= "Breeding" component={Breeding}/>
+              <Drawer.Screen name="Mood" component={Mood}/>
            <Drawer.Screen name='Profile' component={UserProfile}/>
            <Drawer.Screen name='CatEdit' component={CatEdit}/>
            <Drawer.Screen name='Color' component={Color}/>
