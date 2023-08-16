@@ -1,4 +1,4 @@
-import { View, Text,Image, Dimensions, useWindowDimensions, ScrollView } from 'react-native'
+import { View, Text,Image, Dimensions, useWindowDimensions, ScrollView, Linking } from 'react-native'
 import React, {useState, useEffect} from 'react'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -9,6 +9,10 @@ import Styling from '../CustomProperties/Theme2';
 
 
 const Sidebar = ({navigation}) => {
+  const handleVetsNearYou = () => {
+    Linking.openURL('https://www.google.com/maps/search/vets+near+me/')
+  }
+
   const height=useWindowDimensions('screen').height;
   const width=useWindowDimensions('screen').width;  
   const [name , setName] = useState('');
@@ -45,13 +49,18 @@ const Sidebar = ({navigation}) => {
       setUpdate(!update);
     }
 
-    const category=[{title:'Home',icon:'ios-home',nav:'Dashboard'},
-    {title:'Cat Profile',icon:'pets',nav:'Cat Profile'},
-    {title:'FAQ',icon:'hands-helping',nav:'FAQ'},
-    {title:'Locate Vets',icon:'location-pin',nav:'Locate Vets'}];
-    const category2=[{title:'Breed Detection',nav:'Breeding'},
-    {title:'Mood Detection',nav:'Mood'}
-  ]
+    const category = [
+      { title: 'Home', icon: 'ios-home', nav: 'Dashboard' },
+      { title: 'Cat Profile', icon: 'pets', nav: 'Cat Profile' },
+      { title: 'FAQ', icon: 'hands-helping', nav: 'FAQ' },
+      { title: 'Locate Vets', icon: 'location-pin', handler: handleVetsNearYou }
+    ];
+
+    const category2 = [
+      { title: 'Breed Detection', nav: 'Breeding' },
+      { title: 'Mood Detection', nav: 'Mood' }
+    ];
+    
   const category3=[{title:'User Profile',icon:'user',nav:'Profile'},
   {title:'Logout',icon:'logout',nav:null
 }];

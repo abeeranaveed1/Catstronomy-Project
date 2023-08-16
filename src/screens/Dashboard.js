@@ -51,7 +51,7 @@ const Dashboard = ({navigation}) => {
       <View style={{ height:height*0.30, width:width*0.50,alignSelf:'center',justifyContent:'space-evenly'}}>
       <TouchableHighlight
       
-      onPress={handleVetsNearYou}
+      onPress={()=>navigation.navigate('Happy')}
       style={{backgroundColor:'#ffe6e9', height:height*0.12, width:width*0.50,borderRadius:35,flexDirection:'row',alignContent:'center'
     ,justifyContent:'center',shadowOffset: {width: -50, height: 3},  
     shadowColor: '#ff0026',  

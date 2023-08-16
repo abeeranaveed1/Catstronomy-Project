@@ -44,6 +44,11 @@ import Safety from './src/FAQ/Safety';
 import Breeding from './src/screens/BreedDetect';
 import Mood from './src/screens/Mooddetect'
 import ResultsPage from './src/screens/Resultspage';
+import Chart from './src/Mood/Chart';
+import Sad from './src/Mood/Sad'
+import Angry from './src/Mood/Angry'
+import Happy from './src/Mood/Happy'
+import Afraid from './src/Mood/Afraid'
 
 
 
@@ -117,6 +122,12 @@ if (initialiiazing) return null;
    name='Locate Vets' 
    component={Vets}
    />
+                 <Drawer.Screen name="Chart" component={Chart}/>
+                 <Drawer.Screen name="Angry" component={Angry}/>
+                 <Drawer.Screen name="Happy" component={Happy}/>
+                 <Drawer.Screen name="Sad" component={Sad}/>
+                 <Drawer.Screen name="Afraid" component={Afraid}/>
+
               <Drawer.Screen name="Groom" component={Groom}/>
               <Drawer.Screen name="NutritionFAQ" component={NutritionFAQ}/>
               <Drawer.Screen name="Safe" component={Safe}/>

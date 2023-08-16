@@ -4,16 +4,15 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import Styling from '../CustomProperties/Theme2';
 import {firebase} from '../../config';
 import * as ImagePicker from 'expo-image-picker';
-
-
-
+import axios from 'axios';
+import { Alert } from 'react-native';
 
 
 export default function BreedDetect({navigation}) {
 const height=Dimensions.get('screen').height;
 const width=Dimensions.get('screen').width;
 const [uploadedImageUrl, setUploadedImageUrl] = useState(null); // Initialize uploadedImageUrl state
-
+const [imageURI, setImageURI] = useState(null);
 useEffect(() => {
   const unsubscribe = navigation.addListener('blur', () => {
     // Refresh the page when navigating away from it
@@ -23,13 +22,17 @@ useEffect(() => {
   return unsubscribe;
 }, [navigation]);
 
-const NoImage = ()=>{
+const NoImage = async ()=>{
     if(!uploadedImageUrl){
-    alert("No Image Uploaded")
+    return alert("No Image Uploaded")
     }
-    else{
-        navigation.navigate('ResultsPage')
-    }
+    const formData = new FormData();
+    formData.append('image', {
+      uri: imageURI,
+      type: 'image/jpeg',
+      name: 'image.jpg',
+    });
+    await apiCall(formData, uploadedImageUrl);
 }
 
 const handleUploadPhoto = async () => {
@@ -45,6 +48,7 @@ const handleUploadPhoto = async () => {
       return; // Exit if image selection/capture is cancelled
     }
 
+    
     const response = await fetch(imageURI);
     const blob = await response.blob();
     const fileName = `${Date.now()}.jpeg`;
@@ -63,7 +67,9 @@ const handleUploadPhoto = async () => {
       async () => {
         const imageUrl = await uploadTask.snapshot.ref.getDownloadURL();
         setUploadedImageUrl(imageUrl);
+        setImageURI(imageURI)
         console.log('Image upload success. URL:', imageUrl);
+    
       }
     );
   } catch (error) {
@@ -71,6 +77,24 @@ const handleUploadPhoto = async () => {
   }
   
 };
+
+const apiCall = async (formData, url) => {
+  try {
+    const response = await axios({url: 'https://b36e-110-93-226-24.ngrok-free.app/predict/breed',  method: 'POST',
+    data: formData,
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'multipart/form-data'
+    },
+    });
+
+    console.log('API response:', response.data);
+    navigation.navigate('ResultsPage', { breed: response.data.Breed, imageUrl: url });
+  } catch (error) {
+    console.log('API request error:', error);
+  }
+};
+
 useEffect(() => {
   // Ignore the deprecated uri warning from ImagePicker
   console.warn = (message) => {
